@@ -111,36 +111,3 @@ for i in range(len(TESTS)):
         
 sys.exit(0)
 
-for level in LEVELS:
-    options = level
-    for specific in ['-f', '-fno-']:
-        for i in range(len(TESTS)):
-            test1 = ''
-            if TESTS[i] != '':
-                test1 = specific + TESTS[i]
-            options = options + " " + test1
-            for specific2 in ['-f', '-fno-']:
-                for j in range(i+1, len(TESTS)):
-                    test2 = specific2 + TESTS[j]
-                    optimizations = options + ' ' + test2
-                    rc, out = commands.getstatusoutput('gcc ' + optimizations + ' -Wall -o md5game -lpthread -DBENCHMARK md5game.c')
-                    if rc == 0:
-                        sys.stderr.write('Running with options: ' + optimizations + '\n')
-                        rc, out = commands.getstatusoutput('./md5game')
-                        if rc == 0:
-                            count = 0
-                            total = 0
-                            for line in out.splitlines():
-                                total = total + int(line)
-                                count = count + 1
-                            total = total / count
-                            if max < total:
-                                print 'Best options so far:', optimizations, '\nWith average of', total
-                                max = total
-                        else:
-                            sys.stderr.write('MD5 failed with options: ' + optimizations + '\n')
-                    else:
-                        sys.stderr.write('Failed to build ' + optimizations + '\n')
-                        sys.stderr.write('With reason: ' + out + '\n')
-
-
