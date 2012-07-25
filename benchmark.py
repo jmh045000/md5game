@@ -33,7 +33,7 @@ def test_generator():
 def run_program(optimizations):
     global max
     options = ' '.join(optimizations)
-    rc, out = commands.getstatusoutput('gcc -O3 ' + options + ' -Wall -o md5game -lpthread -DBENCHMARK md5game.c')
+    rc, out = commands.getstatusoutput('gcc -O2 ' + options + ' -Wall -o md5game -lpthread -DBENCHMARK md5game.c')
     if rc == 0:
         sys.stderr.write('Running with options: ' + options + '\n')
         rc, out = commands.getstatusoutput('./md5game')
