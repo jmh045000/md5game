@@ -1,2 +1,2 @@
 all:
-	gcc -Wall -O3 -fno-tree-dce -o md5game -lpthread md5game.c
+	gcc -Wall -O2 -ffast-math -fwhole-program -o md5game -lpthread $(CFLAGS) md5game.c
