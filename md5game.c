@@ -171,7 +171,7 @@ int main(int argc, char *argv[])
     high = (((uint64_t)rand())<<32) | rand();
     low = (((uint64_t)rand())<<32) | rand();
 
-    fp = fopen("progress.txt", "w");
+    fp = fopen("progress.txt", "a");
 
 #ifdef BENCHMARK
     if(check_compile())
@@ -201,8 +201,11 @@ int main(int argc, char *argv[])
         if(common > 5)
         {
             common = lcs(one, two);
-            if(common > 13)
-                fprintf(fp, "%s %s %d", one, two, common);
+            if(common > 11)
+            {
+                fprintf(fp, "%s %s %d\n", one, two, common);
+                fflush(fp);
+            }
         }
 
         prev_low = low;

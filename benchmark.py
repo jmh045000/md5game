@@ -5,21 +5,14 @@ import itertools
 import sys
 
 TESTS = [
-    '-fbranch-target-load-optimize2',
-    '-fcx-limited-range',
-    '-ffinite-math-only',
-    '-fipa-reference',
-    '-floop-parallelize-all',
-    '-f-no-math-errno',
-    '-foptimize-sibling-calls',
-    '-frounding-math',
-    '-fschedule-insns',
-    '-fschedule-insns2',
-    '-fsignaling-nans',
-    '-f-no-stack-protector',
-    '-fthread-jumps',
-    '-funsafe-math-optimizations',
-    '-fwhole-program',
+    '-finline-functions',
+    '-funswitch-loops',
+    '-fpredictive-commoning',
+    '-fgcse-after-reload',
+    '-ftree-vectorize',
+    '-fvect-cost-model',
+    '-ftree-partial-pre',
+    '-fipa-cp-clone',
 ]
 
 max = 0
@@ -33,7 +26,7 @@ def test_generator():
 def run_program(optimizations):
     global max
     options = ' '.join(optimizations)
-    rc, out = commands.getstatusoutput('gcc -O2 ' + options + ' -Wall -o md5game -lpthread -DBENCHMARK md5game.c')
+    rc, out = commands.getstatusoutput('gcc -O2 -ffast-math -fwhole-program ' + options + ' -Wall -o md5game -lpthread -DBENCHMARK md5game.c')
     if rc == 0:
         sys.stderr.write('Running with options: ' + options + '\n')
         rc, out = commands.getstatusoutput('./md5game')
